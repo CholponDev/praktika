@@ -1,8 +1,7 @@
 import React, { useMemo, useState } from "react";
-import Header from "../component/Header";
 import style from "../styles/FindJob.module.css";
 
-function FindJob({city = "all"}) {
+function FindJob({ city = "all", jobs = [] }) {
   const [category, setCategory] = useState("all");
   const [schedule, setSchedule] = useState("all");
   const [paymentType, setPaymentType] = useState("all");
@@ -10,7 +9,8 @@ function FindJob({city = "all"}) {
   const [salaryFrom, setSalaryFrom] = useState("");
   const [search, setSearch] = useState("");
 
-  const vacancies = [
+  // ✅ твои базовые вакансии
+  const defaultVacancies = [
     {
       id: 1,
       title: "Официант",
@@ -73,8 +73,11 @@ function FindJob({city = "all"}) {
     },
   ];
 
+  // ✅ объединяем новые + старые
+  const allVacancies = [...jobs, ...defaultVacancies];
+
   const filteredVacancies = useMemo(() => {
-    return vacancies
+    return allVacancies
       .filter((item) =>
         search.trim() === ""
           ? true
@@ -90,7 +93,7 @@ function FindJob({city = "all"}) {
       .filter((item) =>
         salaryFrom === "" ? true : item.salary >= Number(salaryFrom)
       );
-  }, [search, city, category, schedule, paymentType, format, salaryFrom]);
+  }, [search, city, category, schedule, paymentType, format, salaryFrom, jobs]);
 
   return (
     <div className={style.page}>
