@@ -131,6 +131,10 @@ function Header({ city, setCity, lang, setLang }) {
 
           {menuOpen && userName && (
             <div className={style.dropdown}>
+              <div className={style.item} onClick={() => navigate("/profile")}>
+                Мой профиль
+              </div>
+              
               <div className={style.item} onClick={() => navigate("/resumes")}>
                 Мои резюме
               </div>
@@ -147,9 +151,6 @@ function Header({ city, setCity, lang, setLang }) {
                 Статистика
               </div>
 
-              <div className={style.item} onClick={() => navigate("/profile")}>
-                Мой профиль
-              </div>
 
               <div className={style.item} onClick={() => navigate("/instructions")}>
                 Инструкции

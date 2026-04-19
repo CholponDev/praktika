@@ -53,6 +53,9 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
 
         <Route path="/recruit-info" element={<RecruitInfo lang={lang} />} />
 
+          <Route path="/profile" element={<Profile lang={lang} />} />
+
+
         {/* USER DASHBOARD */}
         <Route element={<RoleProtectedRoute allowedRole="user" />}>
           <Route path="/dashboard" element={<Dashboard lang={lang} />} />
@@ -62,7 +65,6 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
           <Route path="/applications" element={<Applications lang={lang} />} />
           <Route path="/favorites" element={<Favorites lang={lang} />} />
           <Route path="/stats" element={<Stats lang={lang} />} />
-          <Route path="/profile" element={<Profile lang={lang} />} />
           <Route path="/instructions" element={<Instructions lang={lang} />} />
         </Route>
 
