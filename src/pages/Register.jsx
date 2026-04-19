@@ -39,7 +39,7 @@ function Register() {
       })
 
       alert("Пользователь успешно зарегистрирован!")
-      navigate("/dashboard")
+      navigate("/")
     } catch (error) {
       console.error(error)
 

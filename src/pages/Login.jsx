@@ -22,7 +22,7 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, form.email, form.password);
       alert("Вход выполнен успешно");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.error(error);
 
