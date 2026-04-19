@@ -9,7 +9,15 @@ function FindJob({ city = "all", jobs = [] }) {
   const [salaryFrom, setSalaryFrom] = useState("");
   const [search, setSearch] = useState("");
 
-  // ✅ твои базовые вакансии
+  const [favorites, setFavorites] = useState({});
+
+  const toggleFavorite = (id) => {
+    setFavorites((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
   const defaultVacancies = [
     {
       id: 1,
@@ -41,47 +49,16 @@ function FindJob({ city = "all", jobs = [] }) {
       format: "Удаленно",
       salary: 40000,
     },
-    {
-      id: 4,
-      title: "Курьер",
-      city: "Каракол",
-      category: "Физическая работа",
-      schedule: "День",
-      paymentType: "Ежедневная",
-      format: "Офис",
-      salary: 22000,
-    },
-    {
-      id: 5,
-      title: "Уборка квартиры",
-      city: "Бишкек",
-      category: "Домашние услуги",
-      schedule: "Часовая",
-      paymentType: "Почасовая",
-      format: "Офис",
-      salary: 15000,
-    },
-    {
-      id: 6,
-      title: "Frontend стажер",
-      city: "Нарын",
-      category: "Стажировка",
-      schedule: "День",
-      paymentType: "Ежемесячная",
-      format: "Гибрид",
-      salary: 20000,
-    },
   ];
 
-  // ✅ объединяем новые + старые
   const allVacancies = [...jobs, ...defaultVacancies];
 
   const filteredVacancies = useMemo(() => {
     return allVacancies
       .filter((item) =>
-        search.trim() === ""
-          ? true
-          : item.title.toLowerCase().includes(search.toLowerCase())
+        search
+          ? item.title.toLowerCase().includes(search.toLowerCase())
+          : true
       )
       .filter((item) => (city === "all" ? true : item.city === city))
       .filter((item) => (category === "all" ? true : item.category === category))
@@ -98,16 +75,18 @@ function FindJob({ city = "all", jobs = [] }) {
   return (
     <div className={style.page}>
 
+      {/* HERO */}
       <div className={style.hero}>
-        <h1>Найди работу под себя</h1>
-        <p>Выбери категорию, график, формат и город</p>
+        <h1>Найти работу</h1>
+        <p>Выбери вакансию и откликнись за пару секунд</p>
       </div>
 
+      {/* FILTERS */}
       <div className={style.filters}>
         <input
           className={style.search}
           type="text"
-          placeholder="Поиск по названию вакансии"
+          placeholder="Поиск вакансии"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -117,39 +96,26 @@ function FindJob({ city = "all", jobs = [] }) {
           <option value="Подработка">Подработка</option>
           <option value="Работа из дома">Работа из дома</option>
           <option value="Для студентов">Для студентов</option>
-          <option value="Удаленно">Удаленно</option>
-          <option value="Без опыта">Без опыта</option>
           <option value="Физическая работа">Физическая работа</option>
-          <option value="Домашние услуги">Домашние услуги</option>
           <option value="Стажировка">Стажировка</option>
         </select>
 
         <select value={schedule} onChange={(e) => setSchedule(e.target.value)}>
-          <option value="all">Любой график</option>
+          <option value="all">График</option>
           <option value="Утро">Утро</option>
           <option value="День">День</option>
           <option value="Вечер">Вечер</option>
-          <option value="Ночь">Ночь</option>
           <option value="Гибкий">Гибкий</option>
-          <option value="Часовая">Часовая</option>
         </select>
 
         <select
           value={paymentType}
           onChange={(e) => setPaymentType(e.target.value)}
         >
-          <option value="all">Тип оплаты</option>
+          <option value="all">Оплата</option>
           <option value="Почасовая">Почасовая</option>
           <option value="Ежедневная">Ежедневная</option>
-          <option value="Еженедельная">Еженедельная</option>
           <option value="Ежемесячная">Ежемесячная</option>
-        </select>
-
-        <select value={format} onChange={(e) => setFormat(e.target.value)}>
-          <option value="all">Любой формат</option>
-          <option value="Офис">Офис</option>
-          <option value="Удаленно">Удаленно</option>
-          <option value="Гибрид">Гибрид</option>
         </select>
 
         <input
@@ -160,22 +126,54 @@ function FindJob({ city = "all", jobs = [] }) {
         />
       </div>
 
+      {/* CARDS */}
       <div className={style.cards}>
         {filteredVacancies.length > 0 ? (
           filteredVacancies.map((job) => (
             <div key={job.id} className={style.card}>
-              <h3>{job.title}</h3>
-              <p><strong>Город:</strong> {job.city}</p>
-              <p><strong>Категория:</strong> {job.category}</p>
-              <p><strong>График:</strong> {job.schedule}</p>
-              <p><strong>Оплата:</strong> {job.paymentType}</p>
-              <p><strong>Формат:</strong> {job.format}</p>
-              <p><strong>Зарплата:</strong> {job.salary} сом</p>
-              <button className={style.cardBtn}>Откликнуться</button>
+
+              {/* LEFT */}
+              <div className={style.left}>
+                <h3 className={style.title}>{job.title}</h3>
+
+                <div className={style.info}>
+                  <p>Город: {job.city}</p>
+                  <p>Категория: {job.category}</p>
+                  <p>График: {job.schedule}</p>
+                  <p>Оплата: {job.paymentType}</p>
+                  <p>Формат: {job.format}</p>
+                </div>
+              </div>
+
+              {/* LINE */}
+              <div className={style.line}></div>
+
+              {/* RIGHT */}
+              <div className={style.right}>
+
+                <div className={style.top}>
+                  <div className={style.salary}>{job.salary} сом</div>
+
+                  <button
+                    className={`${style.heart} ${
+                      favorites[job.id] ? style.activeHeart : ""
+                    }`}
+                    onClick={() => toggleFavorite(job.id)}
+                  >
+                    ♥
+                  </button>
+                </div>
+
+                <button className={style.applyBtn}>
+                  Откликнуться
+                </button>
+
+              </div>
+
             </div>
           ))
         ) : (
-          <p className={style.empty}>По этим фильтрам вакансий пока нет</p>
+          <p className={style.empty}>Вакансий не найдено</p>
         )}
       </div>
     </div>

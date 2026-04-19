@@ -18,6 +18,14 @@ import FindJob from "./pages/FindJob";
 import PostJob from "./pages/PostJob";
 import RecruitInfo from "./pages/RecruitInfo";
 
+// 🆕 новые страницы меню пользователя
+import Resumes from "./pages/Resumes";
+import Applications from "./pages/Applications";
+import Favorites from "./pages/Favorites";
+import Stats from "./pages/Stats";
+import Profile from "./pages/Profile";
+import Instructions from "./pages/Instructions";
+
 function AnimatedRoutes({ city, jobs, addJob, lang }) {
   const location = useLocation();
 
@@ -25,31 +33,40 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         
+        {/* HOME */}
         <Route path="/" element={<Home lang={lang} />} />
+
+        {/* AUTH */}
         <Route path="/register" element={<Register lang={lang} />} />
         <Route path="/login" element={<Login lang={lang} />} />
 
-        {/* вакансии */}
+        {/* JOBS */}
         <Route
           path="/jobs"
           element={<FindJob city={city} jobs={jobs} lang={lang} />}
         />
 
-        {/* добавление вакансии */}
         <Route
           path="/post-job"
           element={<PostJob addJob={addJob} lang={lang} />}
         />
 
-        {/* recruit info */}
         <Route path="/recruit-info" element={<RecruitInfo lang={lang} />} />
 
-        {/* user */}
+        {/* USER DASHBOARD */}
         <Route element={<RoleProtectedRoute allowedRole="user" />}>
           <Route path="/dashboard" element={<Dashboard lang={lang} />} />
+
+          {/* 🆕 USER MENU ROUTES */}
+          <Route path="/resumes" element={<Resumes lang={lang} />} />
+          <Route path="/applications" element={<Applications lang={lang} />} />
+          <Route path="/favorites" element={<Favorites lang={lang} />} />
+          <Route path="/stats" element={<Stats lang={lang} />} />
+          <Route path="/profile" element={<Profile lang={lang} />} />
+          <Route path="/instructions" element={<Instructions lang={lang} />} />
         </Route>
 
-        {/* admin */}
+        {/* ADMIN */}
         <Route element={<RoleProtectedRoute allowedRole="admin" />}>
           <Route path="/admin" element={<AdminPage lang={lang} />} />
         </Route>
@@ -62,7 +79,6 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
 function App() {
   const [city, setCity] = useState("all");
 
-  // 🌐 язык (сохранение)
   const [lang, setLang] = useState(() => {
     return localStorage.getItem("lang") || "ru";
   });
@@ -71,7 +87,6 @@ function App() {
     localStorage.setItem("lang", lang);
   }, [lang]);
 
-  // 📦 вакансии
   const [jobs, setJobs] = useState(() => {
     const saved = localStorage.getItem("jobs");
     return saved ? JSON.parse(saved) : [];

@@ -1,9 +1,89 @@
-.container {
-    width: 600px;
-    height: 500px;
-  /* display: flex; */
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.page {
+  min-height: 100vh;
+  background: #f9fafb;
+  font-family: system-ui, sans-serif;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.userBox {
+  position: relative;
+}
+
+.userButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.userName {
+  font-weight: 600;
+  color: #6d28d9;
+}
+
+.dropdown {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 240px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 8px;
+  z-index: 100;
+}
+
+.item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.item:hover {
+  background: #f3e8ff;
+  color: #6d28d9;
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 8px 0;
+}
+
+.logout {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #ef4444;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.logout:hover {
+  background: #fee2e2;
+}
+
+.content {
+  padding: 40px;
+}
+
+.loading {
+  padding: 40px;
+}

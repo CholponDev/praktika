@@ -1,95 +1,250 @@
+
 .page {
+  background: #f6f7fb;
   min-height: 100vh;
-  background: #f7f9fc;
+  padding: 30px;
+  font-family: Arial;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* HERO */
 .hero {
-  padding: 40px 20px 20px;
   text-align: center;
+  margin-bottom: 25px;
 }
 
 .hero h1 {
-  margin: 0 0 10px;
-  font-size: 34px;
-  color: #1e293b;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .hero p {
-  margin: 0;
-  color: #64748b;
+  color: #666;
 }
 
+/* FILTERS */
 .filters {
-  width: min(1200px, 92%);
-  margin: 24px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  background: white;
-  padding: 18px;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto 30px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
-.filters input,
-.filters select {
-  padding: 12px 14px;
-  border: 1px solid #dbe2ea;
-  border-radius: 12px;
-  font-size: 15px;
+.search,
+.filters select,
+.filters input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
   outline: none;
+  width: auto;
 }
 
-.search {
-  grid-column: span 2;
-}
-
+/* CARDS WRAPPER */
 .cards {
-  width: min(1200px, 92%);
-  margin: 0 auto;
-  padding: 10px 0 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
+/* CARD */
 .card {
-  background: white;
-  border-radius: 20px;
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 18px;
   padding: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  transition: 0.3s;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: 0.25s;
 }
 
 .card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
 }
 
-.card h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  color: #0f172a;
+/* LEFT */
+.left {
+  flex: 1;
+  min-width: 0;
 }
 
-.card p {
-  margin: 8px 0;
-  color: #475569;
+.title {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.cardBtn {
-  margin-top: 14px;
-  width: 100%;
+.info p {
+  font-size: 14px;
+  color: #555;
+  margin: 2px 0;
+}
+
+/* LINE */
+.line {
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(180deg, #6d28d9, #a78bfa);
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* RIGHT */
+.right {
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* SALARY */
+.salary {
+  font-size: 18px;
+  font-weight: 700;
+  color: #5b21b6;
+}
+
+/* HEART */
+.heart {
   border: none;
-  border-radius: 12px;
-  padding: 12px;
-  background: #2563eb;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #bbb;
+  transition: 0.2s;
+}
+
+.heart:hover {
+  transform: scale(1.1);
+}
+
+.activeHeart {
+  color: #ef4444;
+}
+
+/* BUTTON */
+.applyBtn {
+  background: #5b21b6;
   color: white;
+  border: none;
+  padding: 11px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.2s;
 }
 
+.applyBtn:hover {
+  background: #4c1d95;
+  transform: translateY(-1px);
+}
+
+/* EMPTY */
 .empty {
-  width: 100%;
-  text-align: center;
-  color: #64748b;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ===== TABLET ===== */
+@media (max-width: 900px) {
+
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .line {
+    width: 100%;
+    height: 2px;
+  }
+
+  .right {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+
+  .page {
+    padding: 12px;
+  }
+
+  .hero h1 {
+    font-size: 22px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .search,
+  .filters select,
+  .filters input {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .info p {
+    font-size: 13px;
+  }
+
+  .right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .applyBtn {
+    width: 100%;
+  }
+
+  .salary {
+    font-size: 16px;
+  }
+
+  .heart {
+    font-size: 18px;
+  }
 }
