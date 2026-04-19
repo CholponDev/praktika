@@ -1,0 +1,171 @@
+.page {
+  padding: 30px;
+  min-height: 100vh;
+  background: #f6f7fb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Inter", sans-serif;
+  color: #111827;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: -0.5px;
+}
+
+/* 🔍 SEARCH */
+.searchBox {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 650px;
+  margin-bottom: 25px;
+}
+
+.searchBox input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  transition: 0.2s;
+  background: white;
+}
+
+.searchBox input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.searchBox button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  transition: 0.2s;
+}
+
+.searchBox button:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+/* ❗ EMPTY */
+.empty {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.empty p {
+  font-size: 15px;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+.image {
+  width: 120px;
+  opacity: 0.7;
+  margin-bottom: 15px;
+}
+
+.mainButton {
+  margin-top: 15px;
+  padding: 12px 22px;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  transition: 0.2s;
+}
+
+.mainButton:hover {
+  background: #6d28d9;
+}
+
+/* LIST */
+.list {
+  width: 100%;
+  max-width: 650px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #f1f5f9;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* STATUS */
+.status {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.accepted {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.rejected {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* 📱 ADAPTIVE */
+@media (max-width: 600px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .searchBox {
+    flex-direction: column;
+  }
+
+  .searchBox button {
+    width: 100%;
+  }
+
+  .list {
+    width: 100%;
+  }
+}

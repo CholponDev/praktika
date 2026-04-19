@@ -1,23 +1,70 @@
 .page {
-    font-family: sans-serif;
-    background: #f5f7fa;
-    min-height: 100vh;
-  }
-  
-.hero {
-    height: 100vh;
-    background-image: url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
+  font-family: "Inter", sans-serif;
+  background: #f6f7fb;
+  color: #111;
+}
 
-.overlay{
-    background: rgba(0,0,0,0.5);
-    height: 100%;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+/* HERO WRAPPER */
+.heroWrapper {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* BACKGROUND IMAGE */
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+
+  /* 🔥 как в твоём примере */
+  filter: brightness(0.55) saturate(1.1);
+}
+
+/* CONTENT */
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  max-width: 700px;
+}
+
+.heroContent h1 {
+  font-size: 54px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+.heroContent p {
+  margin-top: 20px;
+  font-size: 17px;
+  color: rgba(255,255,255,0.85);
+}
+
+/* BUTTON */
+.heroBtn {
+  margin-top: 30px;
+  background: #7f3aa1;
+  color: white;
+  border: none;
+  padding: 14px 26px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(127, 58, 161, 0.35);
+  transition: 0.3s;
+}
+
+.heroBtn:hover {
+  transform: scale(1.05);
+}

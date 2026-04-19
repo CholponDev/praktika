@@ -1,5 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import style from "../styles/FindJob.module.css";
+
+import {
+  isFavorite,
+  toggleFavorite as toggleFavStorage,
+} from "../favorites";
 
 function FindJob({ city = "all", jobs = [] }) {
   const [category, setCategory] = useState("all");
@@ -10,13 +15,6 @@ function FindJob({ city = "all", jobs = [] }) {
   const [search, setSearch] = useState("");
 
   const [favorites, setFavorites] = useState({});
-
-  const toggleFavorite = (id) => {
-    setFavorites((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   const defaultVacancies = [
     {
@@ -53,6 +51,27 @@ function FindJob({ city = "all", jobs = [] }) {
 
   const allVacancies = [...jobs, ...defaultVacancies];
 
+  // 🔥 загрузка избранного при старте (без багов)
+  useEffect(() => {
+    const favState = {};
+
+    allVacancies.forEach((job) => {
+      favState[job.id] = isFavorite(job.id);
+    });
+
+    setFavorites(favState);
+  }, [jobs]);
+
+  // ❤️ toggle избранного (ПОЛНЫЙ ОБЪЕКТ)
+  const toggleFavorite = (job) => {
+    toggleFavStorage(job);
+
+    setFavorites((prev) => ({
+      ...prev,
+      [job.id]: !prev[job.id],
+    }));
+  };
+
   const filteredVacancies = useMemo(() => {
     return allVacancies
       .filter((item) =>
@@ -61,8 +80,12 @@ function FindJob({ city = "all", jobs = [] }) {
           : true
       )
       .filter((item) => (city === "all" ? true : item.city === city))
-      .filter((item) => (category === "all" ? true : item.category === category))
-      .filter((item) => (schedule === "all" ? true : item.schedule === schedule))
+      .filter((item) =>
+        category === "all" ? true : item.category === category
+      )
+      .filter((item) =>
+        schedule === "all" ? true : item.schedule === schedule
+      )
       .filter((item) =>
         paymentType === "all" ? true : item.paymentType === paymentType
       )
@@ -70,7 +93,16 @@ function FindJob({ city = "all", jobs = [] }) {
       .filter((item) =>
         salaryFrom === "" ? true : item.salary >= Number(salaryFrom)
       );
-  }, [search, city, category, schedule, paymentType, format, salaryFrom, jobs]);
+  }, [
+    search,
+    city,
+    category,
+    schedule,
+    paymentType,
+    format,
+    salaryFrom,
+    jobs,
+  ]);
 
   return (
     <div className={style.page}>
@@ -158,7 +190,7 @@ function FindJob({ city = "all", jobs = [] }) {
                     className={`${style.heart} ${
                       favorites[job.id] ? style.activeHeart : ""
                     }`}
-                    onClick={() => toggleFavorite(job.id)}
+                    onClick={() => toggleFavorite(job)}
                   >
                     ♥
                   </button>

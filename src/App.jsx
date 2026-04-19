@@ -18,6 +18,9 @@ import FindJob from "./pages/FindJob";
 import PostJob from "./pages/PostJob";
 import RecruitInfo from "./pages/RecruitInfo";
 
+
+
+
 // 🆕 новые страницы меню пользователя
 import Resumes from "./pages/Resumes";
 import Applications from "./pages/Applications";
