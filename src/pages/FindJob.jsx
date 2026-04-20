@@ -16,6 +16,7 @@ function FindJob({ city = "all", jobs = [] }) {
 
   const [favorites, setFavorites] = useState({});
 
+  // 📌 Дефолтные вакансии
   const defaultVacancies = [
     {
       id: 1,
@@ -49,9 +50,11 @@ function FindJob({ city = "all", jobs = [] }) {
     },
   ];
 
-  const allVacancies = [...jobs, ...defaultVacancies];
+  const allVacancies = useMemo(() => {
+    return [...jobs, ...defaultVacancies];
+  }, [jobs]);
 
-  // 🔥 загрузка избранного при старте (без багов)
+  // ❤️ загрузка избранного
   useEffect(() => {
     const favState = {};
 
@@ -60,9 +63,9 @@ function FindJob({ city = "all", jobs = [] }) {
     });
 
     setFavorites(favState);
-  }, [jobs]);
+  }, [allVacancies]);
 
-  // ❤️ toggle избранного (ПОЛНЫЙ ОБЪЕКТ)
+  // ❤️ toggle избранного
   const toggleFavorite = (job) => {
     toggleFavStorage(job);
 
@@ -72,6 +75,7 @@ function FindJob({ city = "all", jobs = [] }) {
     }));
   };
 
+  // 🔍 Фильтрация вакансий
   const filteredVacancies = useMemo(() => {
     return allVacancies
       .filter((item) =>
@@ -89,7 +93,9 @@ function FindJob({ city = "all", jobs = [] }) {
       .filter((item) =>
         paymentType === "all" ? true : item.paymentType === paymentType
       )
-      .filter((item) => (format === "all" ? true : item.format === format))
+      .filter((item) =>
+        format === "all" ? true : item.format === format
+      )
       .filter((item) =>
         salaryFrom === "" ? true : item.salary >= Number(salaryFrom)
       );
@@ -101,7 +107,7 @@ function FindJob({ city = "all", jobs = [] }) {
     paymentType,
     format,
     salaryFrom,
-    jobs,
+    allVacancies,
   ]);
 
   return (
@@ -115,6 +121,7 @@ function FindJob({ city = "all", jobs = [] }) {
 
       {/* FILTERS */}
       <div className={style.filters}>
+
         <input
           className={style.search}
           type="text"
@@ -150,6 +157,13 @@ function FindJob({ city = "all", jobs = [] }) {
           <option value="Ежемесячная">Ежемесячная</option>
         </select>
 
+        <select value={format} onChange={(e) => setFormat(e.target.value)}>
+          <option value="all">Формат</option>
+          <option value="Офис">Офис</option>
+          <option value="Удаленно">Удаленно</option>
+          <option value="Гибрид">Гибрид</option>
+        </select>
+
         <input
           type="number"
           placeholder="Зарплата от"
@@ -160,11 +174,11 @@ function FindJob({ city = "all", jobs = [] }) {
 
       {/* CARDS */}
       <div className={style.cards}>
+
         {filteredVacancies.length > 0 ? (
           filteredVacancies.map((job) => (
             <div key={job.id} className={style.card}>
 
-              {/* LEFT */}
               <div className={style.left}>
                 <h3 className={style.title}>{job.title}</h3>
 
@@ -177,14 +191,14 @@ function FindJob({ city = "all", jobs = [] }) {
                 </div>
               </div>
 
-              {/* LINE */}
               <div className={style.line}></div>
 
-              {/* RIGHT */}
               <div className={style.right}>
 
                 <div className={style.top}>
-                  <div className={style.salary}>{job.salary} сом</div>
+                  <div className={style.salary}>
+                    {job.salary} сом
+                  </div>
 
                   <button
                     className={`${style.heart} ${
@@ -205,8 +219,11 @@ function FindJob({ city = "all", jobs = [] }) {
             </div>
           ))
         ) : (
-          <p className={style.empty}>Вакансий не найдено</p>
+          <p className={style.empty}>
+            Вакансий не найдено
+          </p>
         )}
+
       </div>
     </div>
   );

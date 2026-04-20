@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/Home.module.css";
 import { useState } from "react";
 
 function Home() {
+
   const [activeJob, setActiveJob] = useState(null);
 
 const popularJobs = [
@@ -38,13 +40,16 @@ const popularJobs = [
 const handleJobClick = (id) => {
   setActiveJob(activeJob === id ? null : id);
 };
+
+  const navigate = useNavigate();
+
+
   return (
     <div className={styles.page}>
 
-      {/* HERO (как RecruitInfo стиль) */}
+      {/* HERO */}
       <div className={styles.heroWrapper}>
 
-        {/* BACKGROUND */}
         <div
           className={styles.heroBg}
           style={{
@@ -53,16 +58,19 @@ const handleJobClick = (id) => {
           }}
         />
 
-        {/* CONTENT */}
         <div className={styles.heroContent}>
           <h1>Найди работу быстрее</h1>
-          <h1>чем когда-либо 💼</h1>
+          <h1>чем когда-либо </h1>
 
           <p>
             Emgek.kg — современная платформа для поиска вакансий и сотрудников
           </p>
 
-          <button className={styles.heroBtn}>
+          {/* ✔️ ВАЖНО: ДОБАВИЛИ onClick */}
+          <button
+            className={styles.heroBtn}
+            onClick={() => navigate("/jobs")}
+          >
             Найти вакансии
           </button>
         </div>

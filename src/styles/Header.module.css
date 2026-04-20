@@ -1,7 +1,24 @@
-/* =========================
-   HEADER BASE
-========================= */
+/* =============================
+   Premium Header (Glassmorphism UI)
+   Inspired by Stripe / Linear / Apple
+   Fully Responsive Clean Version
+   ============================= */
 
+:root {
+  --white: #ffffff;
+  --purple-1: #7F3AA1;
+  --purple-2: #5416B5;
+  --text: #1a1a1a;
+  --muted: rgba(0, 0, 0, 0.55);
+  --border: rgba(0, 0, 0, 0.08);
+  --glass: rgba(255, 255, 255, 0.7);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* =============================
+   HEADER
+   ============================= */
 .header {
   position: sticky;
   top: 0;
@@ -10,216 +27,138 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 
-  padding: 14px 24px;
+  padding: 14px 28px;
 
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
-  border-bottom: 1px solid rgba(127, 58, 161, 0.08);
+  border-bottom: 1px solid var(--border);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-soft);
+
+  animation: fadeDown 0.4s ease;
 }
 
-/* =========================
-   LEFT SIDE
-========================= */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
+/* =============================
+   LEFT
+   ============================= */
 .left {
   display: flex;
   align-items: center;
   gap: 18px;
+  flex-wrap: wrap;
 }
 
+/* =============================
+   LOGO
+   ============================= */
 .logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 1px;
-
-  background: linear-gradient(135deg, #7F3AA1, #5416B5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
+  height: 90px;
+  width: auto;
+  object-fit: contain;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px rgba(127, 58, 161, 0.35));
 }
 
-.photo {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-
-  cursor: pointer;
-
-  border: 2px solid rgba(127, 58, 161, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.photo:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 20px rgba(127, 58, 161, 0.25);
-}
-
-/* =========================
-   NAVIGATION
-========================= */
-
+/* =============================
+   NAVIGATION (DESKTOP)
+   ============================= */
 .navList {
   display: flex;
+  align-items: center;
   gap: 18px;
-  margin-left: 10px;
   list-style: none;
 }
 
 .navItem {
-  position: relative;
   font-size: 14px;
   font-weight: 500;
-
-  color: #2b2b2b;
+  color: var(--muted);
   cursor: pointer;
 
-  padding: 6px 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
 
-  transition: color 0.3s ease;
-}
-
-.navItem::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-
-  width: 0%;
-  height: 2px;
-
-  background: linear-gradient(90deg, #7F3AA1, #5416B5);
-
-  transition: width 0.3s ease;
-  border-radius: 10px;
+  transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .navItem:hover {
-  color: #5416B5;
+  background: rgba(127, 58, 161, 0.08);
+  color: var(--text);
+  transform: translateY(-1px);
 }
 
-.navItem:hover::after {
-  width: 100%;
-}
-
-/* =========================
-   RIGHT SIDE
-========================= */
-
+/* =============================
+   RIGHT
+   ============================= */
 .right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-/* language */
-.langSelect {
-  padding: 8px 10px;
-
-  border-radius: 12px;
-  border: 1px solid rgba(127, 58, 161, 0.15);
-
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-
-  font-size: 13px;
-  outline: none;
-
-  cursor: pointer;
-
-  transition: all 0.3s ease;
-}
-
-.langSelect:hover {
-  border-color: #7F3AA1;
-  box-shadow: 0 6px 18px rgba(127, 58, 161, 0.15);
-}
-
-/* city */
-.locationBox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 6px 10px;
-
-  border-radius: 14px;
-  border: 1px solid rgba(127, 58, 161, 0.12);
-
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-}
-
-.label {
-  font-size: 12px;
-  color: #666;
-}
-
-.select {
-  border: none;
-  outline: none;
-  background: transparent;
-
-  font-size: 13px;
-  cursor: pointer;
-}
-
-/* =========================
+/* =============================
    BUTTON
-========================= */
-
+   ============================= */
 .button {
-  padding: 9px 14px;
+  padding: 10px 16px;
 
-  border-radius: 12px;
   border: none;
-
-  background: linear-gradient(135deg, #7F3AA1, #5416B5);
-  color: white;
+  border-radius: 999px;
 
   font-size: 13px;
   font-weight: 600;
+  color: var(--white);
+
+  background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
 
   cursor: pointer;
 
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 20px rgba(127, 58, 161, 0.25);
+  box-shadow: 0 8px 20px rgba(127, 58, 161, 0.25);
+
+  transition: all 0.25s ease;
 }
 
 .button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 14px 30px rgba(127, 58, 161, 0.35);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(127, 58, 161, 0.35);
 }
 
-/* =========================
-   USER BUTTON (dropdown trigger)
-========================= */
-
+/* =============================
+   USER
+   ============================= */
 .userBox {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .userBtn {
-  padding: 8px 14px;
+  padding: 9px 14px;
 
-  border-radius: 12px;
-  border: 1px solid rgba(127, 58, 161, 0.25);
+  border-radius: 999px;
+  border: 1px solid var(--border);
 
   background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
 
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 
   cursor: pointer;
@@ -228,197 +167,147 @@
 }
 
 .userBtn:hover {
-  border-color: #7F3AA1;
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(127, 58, 161, 0.15);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* =========================
-   DROPDOWN MENU (NEW)
-========================= */
-
+/* =============================
+   DROPDOWN
+   ============================= */
 .dropdown {
   position: absolute;
   top: 48px;
   right: 0;
 
-  width: 240px;
+  width: 220px;
+  padding: 10px;
 
-  padding: 8px;
-
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(18px);
 
-  border: 1px solid rgba(127, 58, 161, 0.12);
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
 
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow);
 
-  animation: fadeIn 0.15s ease;
-  z-index: 999;
+  animation: dropdownIn 0.25s ease;
 }
 
-/* menu item */
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .item {
   padding: 10px 12px;
   border-radius: 10px;
-
-  font-size: 14px;
+  font-size: 13px;
+  color: var(--text);
   cursor: pointer;
-
-  color: #222;
-
   transition: all 0.2s ease;
 }
 
 .item:hover {
   background: rgba(127, 58, 161, 0.08);
-  color: #7F3AA1;
   transform: translateX(4px);
 }
 
-/* divider */
 .divider {
   height: 1px;
-  margin: 6px 0;
-  background: rgba(0, 0, 0, 0.08);
+  margin: 8px 0;
+  background: var(--border);
 }
 
-/* logout */
 .logout {
   padding: 10px 12px;
   border-radius: 10px;
-
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
-
+  color: #d92d20;
   cursor: pointer;
-
-  color: #ff4d4f;
-
   transition: all 0.2s ease;
 }
 
 .logout:hover {
-  background: rgba(255, 77, 79, 0.08);
+  background: rgba(217, 45, 32, 0.08);
   transform: translateX(4px);
 }
 
-/* =========================
-   PROFILE ICON
-========================= */
-
-.img {
-  width: 34px;
-  height: 34px;
-
-  border-radius: 50%;
-  object-fit: cover;
-
-  cursor: pointer;
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 10px 25px rgba(127, 58, 161, 0.25);
-}
-
-/* =========================
-   PHOTO MODAL
-========================= */
-
-.overlay {
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  opacity: 0;
-  pointer-events: none;
-
-  transition: all 0.3s ease;
-}
-
-.showOverlay {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.bigPhoto {
-  width: 280px;
-  height: 280px;
-
-  border-radius: 20px;
-  object-fit: cover;
-
-  transform: scale(0.9);
-
-  transition: all 0.3s ease;
-
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.showPhoto {
-  transform: scale(1);
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* =============================
+   RESPONSIVE (FULL)
+   ============================= */
 
 @media (max-width: 1024px) {
   .navList {
-    display: none;
+    gap: 12px;
+  }
+
+  .logo {
+    height: 70px;
   }
 }
 
 @media (max-width: 768px) {
   .header {
-    padding: 12px 16px;
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .right {
+  .left, .right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logo {
+    height: 55px;
+  }
+
+  .navList {
+    width: 100%;
+    overflow-x: auto;
+    padding: 6px 0;
     gap: 10px;
   }
 
-  .locationBox {
-    display: none;
+  .navItem {
+    font-size: 12px;
+    padding: 6px 10px;
+    flex-shrink: 0;
   }
 
   .button {
     padding: 8px 12px;
     font-size: 12px;
   }
+
+  .userBtn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
 }
 
 @media (max-width: 480px) {
-  .langSelect {
-    display: none;
+  .header {
+    padding: 10px;
   }
 
   .logo {
-    font-size: 18px;
+    height: 48px;
+  }
+
+  .navList {
+    gap: 8px;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
   }
 }

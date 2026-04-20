@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "../styles/Header.module.css";
 import { useNavigate } from "react-router-dom";
-import photo from "../assets/emgek.jpeg";
+
+import logo from "../assets/emgek.jpeg"; // ⬅️ добавь свой файл логотипа
+
 import translations from "../translations";
 
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -34,7 +36,6 @@ function Header({ city, setCity, lang, setLang }) {
           setUserName("Пользователь");
         }
       } catch (err) {
-        console.log(err);
         setUserName("Пользователь");
       }
     });
@@ -71,25 +72,22 @@ function Header({ city, setCity, lang, setLang }) {
   return (
     <header className={style.header}>
       <div className={style.left}>
-        <h1 className={style.logo}>EMGEK</h1>
 
+        {/* LOGO (замена EMGEK текста) */}
         <img
-          className={style.photo}
-          src={photo}
-          alt="photo"
-          onClick={() => setOpenPhoto(true)}
+          src={logo}
+          alt="Emgek logo"
+          className={style.logo}
+          onClick={() => navigate("/")}
         />
+
+      
 
         <div
           className={`${style.overlay} ${openPhoto ? style.showOverlay : ""}`}
           onClick={() => setOpenPhoto(false)}
         >
-          <img
-            className={`${style.bigPhoto} ${openPhoto ? style.showPhoto : ""}`}
-            src={photo}
-            alt="photo"
-            onClick={(e) => e.stopPropagation()}
-          />
+        
         </div>
 
         <ul className={style.navList}>
@@ -97,10 +95,7 @@ function Header({ city, setCity, lang, setLang }) {
             {lang === "ru" ? "Вакансии" : "Вакансиялар"}
           </li>
 
-          <li
-            className={style.navItem}
-            onClick={() => navigate("/recruit-info")}
-          >
+          <li className={style.navItem} onClick={() => navigate("/recruit-info")}>
             {lang === "ru" ? "Ищу сотрудника" : "Кызматкер издейм"}
           </li>
 
@@ -111,7 +106,6 @@ function Header({ city, setCity, lang, setLang }) {
       </div>
 
       <div className={style.right}>
-        {/* USER MENU */}
         <div className={style.userBox} ref={menuRef}>
           {userName ? (
             <button
@@ -134,24 +128,18 @@ function Header({ city, setCity, lang, setLang }) {
               <div className={style.item} onClick={() => navigate("/profile")}>
                 Мой профиль
               </div>
-              
               <div className={style.item} onClick={() => navigate("/resumes")}>
                 Мои резюме
               </div>
-
               <div className={style.item} onClick={() => navigate("/applications")}>
                 Мои отклики
               </div>
-
               <div className={style.item} onClick={() => navigate("/favorites")}>
                 Избранные вакансии
               </div>
-
               <div className={style.item} onClick={() => navigate("/stats")}>
                 Статистика
               </div>
-
-
               <div className={style.item} onClick={() => navigate("/instructions")}>
                 Инструкции
               </div>
@@ -165,12 +153,10 @@ function Header({ city, setCity, lang, setLang }) {
           )}
         </div>
 
-        {/* ➕ BUTTON */}
         <button className={style.button} onClick={handleAddResume}>
           {lang === "ru" ? "Добавить резюме" : "Резюме кошуу"}
         </button>
 
-        {/* 🌍 FLAGS (ПОСЛЕ КНОПКИ) */}
         <div style={{ display: "flex", gap: "8px", marginLeft: "10px" }}>
           <img
             src="https://flagcdn.com/w40/ru.png"
@@ -180,9 +166,6 @@ function Header({ city, setCity, lang, setLang }) {
               cursor: "pointer",
               width: "24px",
               opacity: lang === "ru" ? 1 : 0.5,
-              transform: lang === "ru" ? "scale(1.1)" : "scale(1)",
-              transition: "0.2s",
-              borderRadius: "3px",
             }}
           />
 
@@ -194,9 +177,6 @@ function Header({ city, setCity, lang, setLang }) {
               cursor: "pointer",
               width: "24px",
               opacity: lang === "kg" ? 1 : 0.5,
-              transform: lang === "kg" ? "scale(1.1)" : "scale(1)",
-              transition: "0.2s",
-              borderRadius: "3px",
             }}
           />
         </div>
