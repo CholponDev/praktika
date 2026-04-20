@@ -2,12 +2,6 @@
   --white: #ffffff;
   --purple-1: #7F3AA1;
   --purple-2: #5416B5;
-  --text: #1a1a1a;
-  --muted: rgba(0, 0, 0, 0.55);
-  --border: rgba(0, 0, 0, 0.08);
-  --glass: rgba(255, 255, 255, 0.72);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 /* HEADER */
@@ -343,4 +337,29 @@
   .navItem {
     font-size: 10.5px;
   }
+}
+
+.themeBtn {
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+
+  cursor: pointer;
+  font-size: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.25s ease;
+}
+
+.themeBtn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-soft);
 }

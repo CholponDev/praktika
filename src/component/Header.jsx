@@ -10,7 +10,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase";
 
-function Header({ city, setCity, lang, setLang }) {
+function Header({ city, setCity, lang, setLang, theme, setTheme }) {
   const navigate = useNavigate();
 
   const [openPhoto, setOpenPhoto] = useState(false);
@@ -70,6 +70,7 @@ function Header({ city, setCity, lang, setLang }) {
   };
 
   return (
+    
     <header className={style.header}>
       <div className={style.left}>
 
