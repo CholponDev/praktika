@@ -72,6 +72,7 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
           <Route path="/stats" element={<Stats lang={lang} />} />
           <Route path="/instructions" element={<Instructions lang={lang} />} />
           <Route path="/resumes" element={<Resumes lang={lang} />} />
+          <Route path="instructions" element={<Instructions lang={lang} />} />
         </Route>
 
         {/* ADMIN */}

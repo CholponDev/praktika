@@ -4,9 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import styles from "../styles/Addresume.module.css";
 import translations from "../translations";
+import { useNavigate } from "react-router-dom";
 
 function Addresume({ lang }) {
-const t = translations?.resumes?.[lang] || {};
+
+  const navigate = useNavigate();
+
+
+ const t = translations?.resumes?.[lang] || {};
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -90,8 +95,9 @@ const t = translations?.resumes?.[lang] || {};
       );
 
       alert(lang === "ru" ? "Резюме сохранено" : "Резюме сакталды");
+      navigate("/resumes");
+
     } catch (error) {
-      console.log("Ошибка при сохранении резюме:", error);
       alert(lang === "ru" ? "Ошибка" : "Ката");
     } finally {
       setSaving(false);
