@@ -154,7 +154,7 @@ function Header({ city, setCity, lang, setLang }) {
         </div>
 
         <button className={style.button} onClick={handleAddResume}>
-          {lang === "ru" ? "Добавить резюме" : "Резюме кошуу"}
+          {lang === "ru" ? "Создать резюме" : "Резюме түзүү"}
         </button>
 
         <div style={{ display: "flex", gap: "8px", marginLeft: "10px" }}>

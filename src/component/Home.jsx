@@ -1,131 +1,145 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
+import translations from "../translations";
 
-function Home() {
+function Home({ lang }) {
+  const navigate = useNavigate();
+  const t = translations[lang];
 
   const [activeJob, setActiveJob] = useState(null);
 
-const popularJobs = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    short: "React • Remote",
-    description:
-      "Frontend Developer создаёт интерфейс сайта или приложения. Нужно знать HTML, CSS, JavaScript, React и уметь работать с API.",
-    salary: "от 60 000 сом",
-    type: "Удалённо",
-  },
-  {
-    id: 2,
-    title: "UI/UX Designer",
-    short: "Figma • Full-time",
-    description:
-      "UI/UX Designer проектирует удобный и красивый дизайн сайта. Работает с Figma, прототипами, цветами и пользовательским опытом.",
-    salary: "от 45 000 сом",
-    type: "Полный день",
-  },
-  {
-    id: 3,
-    title: "Project Manager",
-    short: "Agile • Hybrid",
-    description:
-      "Project Manager управляет командой и задачами проекта. Следит за сроками, общается с клиентами и помогает команде работать быстрее.",
-    salary: "от 70 000 сом",
-    type: "Гибрид",
-  },
-];
+  const popularJobs = [
+    {
+      id: 1,
+      title: "Frontend Developer",
+      short: "React • Remote",
+      description:
+        lang === "ru"
+          ? "Frontend Developer создаёт интерфейс сайта или приложения..."
+          : "Frontend Developer сайттын интерфейсин түзөт...",
+      salary: lang === "ru" ? "от 60 000 сом" : "60 000 сомдон баштап",
+      type: lang === "ru" ? "Удалённо" : "Алыстан",
+    },
+    {
+      id: 2,
+      title: "UI/UX Designer",
+      short: "Figma • Full-time",
+      description:
+        lang === "ru"
+          ? "UI/UX Designer проектирует удобный дизайн..."
+          : "UI/UX Designer ыңгайлуу дизайн түзөт...",
+      salary: lang === "ru" ? "от 45 000 сом" : "45 000 сомдон баштап",
+      type: lang === "ru" ? "Полный день" : "Толук күн",
+    },
+    {
+      id: 3,
+      title: "Project Manager",
+      short: "Agile • Hybrid",
+      description:
+        lang === "ru"
+          ? "Project Manager управляет командой..."
+          : "Project Manager команда менен иштейт...",
+      salary: lang === "ru" ? "от 70 000 сом" : "70 000 сомдон баштап",
+      type: lang === "ru" ? "Гибрид" : "Гибрид",
+    },
+  ];
 
-const handleJobClick = (id) => {
-  setActiveJob(activeJob === id ? null : id);
-};
-
-  const navigate = useNavigate();
-
+  const handleJobClick = (id) => {
+    setActiveJob(activeJob === id ? null : id);
+  };
 
   return (
     <div className={styles.page}>
 
       {/* HERO */}
       <div className={styles.heroWrapper}>
-
         <div
           className={styles.heroBg}
           style={{
             backgroundImage:
-              "url('https://i.pinimg.com/1200x/c0/76/f5/c076f5e99914587b7b33d4c81dd463cb.jpg')"
+              "url('https://i.pinimg.com/1200x/15/6c/83/156c83ba654c8f2b091352a0a0c230fd.jpg')",
           }}
         />
 
         <div className={styles.heroContent}>
-          <h1>Найди работу быстрее</h1>
-          <h1>чем когда-либо </h1>
+          <h1>{t.heroTitle1}</h1>
+          <h1>{t.heroTitle2}</h1>
 
-          <p>
-            Emgek.kg — современная платформа для поиска вакансий и сотрудников
-          </p>
+          <p>{t.heroText}</p>
 
-          {/* ✔️ ВАЖНО: ДОБАВИЛИ onClick */}
           <button
             className={styles.heroBtn}
             onClick={() => navigate("/jobs")}
           >
-            Найти вакансии
+            {t.heroBtn}
           </button>
         </div>
       </div>
 
-      {/* POPULAR JOBS */}
+      {/* POPULAR */}
       <section className={styles.section}>
-      <h2>Популярные вакансии</h2>
+        <h2>{t.popular}</h2>
 
-       <div className={styles.grid}>
-        {popularJobs.map((job) => (
-         <div
-        key={job.id}
-        className={`${styles.card} ${
-          activeJob === job.id ? styles.activeCard : ""
-        }`}
-        onClick={() => handleJobClick(job.id)}
-         >
-        <h3>{job.title}</h3>
-        <p>{job.short}</p>
+        <div className={styles.grid}>
+          {popularJobs.map((job) => (
+            <div
+              key={job.id}
+              className={`${styles.card} ${
+                activeJob === job.id ? styles.activeCard : ""
+              }`}
+              onClick={() => handleJobClick(job.id)}
+            >
+              <h3>{job.title}</h3>
+              <p>{job.short}</p>
 
-        {activeJob === job.id && (
-          <div className={styles.jobInfo}>
-            <p>{job.description}</p>
+              {activeJob === job.id && (
+                <div className={styles.jobInfo}>
+                  <p>{job.description}</p>
 
-            <div className={styles.jobDetails}>
-              <span>{job.salary}</span>
-              <span>{job.type}</span>
+                  <div className={styles.jobDetails}>
+                    <span>{job.salary}</span>
+                    <span>{job.type}</span>
+                  </div>
+
+                  <button className={styles.applyBtn}>
+                    {lang === "ru" ? "Подробнее" : "Толугураак"}
+                  </button>
+                </div>
+              )}
             </div>
-
-            <button className={styles.applyBtn}>
-              Подробнее
-            </button>
-            </div>
-          )}
-          </div>
-        ))}
+          ))}
         </div>
-       </section>
+      </section>
 
-      {/* WHY US */}
+      {/* WHY */}
       <section className={styles.sectionDark}>
-        <h2>Почему Emgek.kg?</h2>
+        <h2>{t.why}</h2>
 
         <div className={styles.features}>
-          <div className={styles.featureCard}>🚀 Быстрый поиск работы</div>
-          <div className={styles.featureCard}>💼 Проверенные работодатели</div>
-          <div className={styles.featureCard}>📊 Удобный интерфейс</div>
+          {(lang === "ru"
+            ? [
+                "🚀 Быстрый поиск работы",
+                "💼 Проверенные работодатели",
+                "📊 Удобный интерфейс",
+              ]
+            : [
+                "🚀 Жумушту тез табуу",
+                "💼 Текшерилген иш берүүчүлөр",
+                "📊 Ыңгайлуу интерфейс",
+              ]
+          ).map((item, i) => (
+            <div key={i} className={styles.featureCard}>
+              {item}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* FOOTER */}
       <footer className={styles.footer}>
         <h3>Emgek.kg</h3>
-        <p>Найдите работу или сотрудников за пару кликов</p>
+        <p>{t.footerText}</p>
 
         <div className={styles.footerLinks}>
           <a href="#">Вакансии</a>

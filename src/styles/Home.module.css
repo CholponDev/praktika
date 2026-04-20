@@ -1,5 +1,29 @@
 /* HERO CONTENT */
+.heroBg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6); /* затемнение */
+}
 
+.heroWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.heroWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* прозрачный тёмный слой */
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 0; /* чтобы текст был поверх */
+}
 .heroContent {
   position: relative;
   z-index: 2;
@@ -14,8 +38,8 @@
 
 .heroContent h1 {
   margin: 0;
-  font-size: clamp(38px, 6vw, 72px);
-  font-weight: 900;
+  font-size: clamp(30px, 6vw, 72px);
+  font-weight: 700;
   line-height: 1.08;
   letter-spacing: -1.5px;
   text-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);

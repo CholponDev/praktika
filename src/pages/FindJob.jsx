@@ -1,12 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import style from "../styles/FindJob.module.css";
+import { useNavigate } from "react-router-dom";
 
 import {
   isFavorite,
   toggleFavorite as toggleFavStorage,
 } from "../favorites";
 
-function FindJob({ city = "all", jobs = [] }) {
+import translations from "../translations";
+
+function FindJob({ city = "all", jobs = [], lang }) {
+  const t = translations.findJob[lang];
+
+  const navigate = useNavigate(); // ✅ ДОБАВИЛИ
+
   const [category, setCategory] = useState("all");
   const [schedule, setSchedule] = useState("all");
   const [paymentType, setPaymentType] = useState("all");
@@ -16,7 +23,6 @@ function FindJob({ city = "all", jobs = [] }) {
 
   const [favorites, setFavorites] = useState({});
 
-  // 📌 Дефолтные вакансии
   const defaultVacancies = [
     {
       id: 1,
@@ -54,18 +60,14 @@ function FindJob({ city = "all", jobs = [] }) {
     return [...jobs, ...defaultVacancies];
   }, [jobs]);
 
-  // ❤️ загрузка избранного
   useEffect(() => {
     const favState = {};
-
     allVacancies.forEach((job) => {
       favState[job.id] = isFavorite(job.id);
     });
-
     setFavorites(favState);
   }, [allVacancies]);
 
-  // ❤️ toggle избранного
   const toggleFavorite = (job) => {
     toggleFavStorage(job);
 
@@ -75,7 +77,6 @@ function FindJob({ city = "all", jobs = [] }) {
     }));
   };
 
-  // 🔍 Фильтрация вакансий
   const filteredVacancies = useMemo(() => {
     return allVacancies
       .filter((item) =>
@@ -115,32 +116,31 @@ function FindJob({ city = "all", jobs = [] }) {
 
       {/* HERO */}
       <div className={style.hero}>
-        <h1>Найти работу</h1>
-        <p>Выбери вакансию и откликнись за пару секунд</p>
+        <h1>{t.title}</h1>
+        <p>{t.subtitle}</p>
       </div>
 
       {/* FILTERS */}
       <div className={style.filters}>
-
         <input
           className={style.search}
           type="text"
-          placeholder="Поиск вакансии"
+          placeholder={t.search}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="all">Все категории</option>
-          <option value="Подработка">Подработка</option>
-          <option value="Работа из дома">Работа из дома</option>
-          <option value="Для студентов">Для студентов</option>
-          <option value="Физическая работа">Физическая работа</option>
-          <option value="Стажировка">Стажировка</option>
+          <option value="all">{t.allCategories}</option>
+          <option value="Подработка">{t.categories.partTime}</option>
+          <option value="Работа из дома">{t.categories.home}</option>
+          <option value="Для студентов">{t.categories.students}</option>
+          <option value="Физическая работа">{t.categories.physical}</option>
+          <option value="Стажировка">{t.categories.internship}</option>
         </select>
 
         <select value={schedule} onChange={(e) => setSchedule(e.target.value)}>
-          <option value="all">График</option>
+          <option value="all">{t.schedule}</option>
           <option value="Утро">Утро</option>
           <option value="День">День</option>
           <option value="Вечер">Вечер</option>
@@ -151,14 +151,14 @@ function FindJob({ city = "all", jobs = [] }) {
           value={paymentType}
           onChange={(e) => setPaymentType(e.target.value)}
         >
-          <option value="all">Оплата</option>
+          <option value="all">{t.payment}</option>
           <option value="Почасовая">Почасовая</option>
           <option value="Ежедневная">Ежедневная</option>
           <option value="Ежемесячная">Ежемесячная</option>
         </select>
 
         <select value={format} onChange={(e) => setFormat(e.target.value)}>
-          <option value="all">Формат</option>
+          <option value="all">{t.format}</option>
           <option value="Офис">Офис</option>
           <option value="Удаленно">Удаленно</option>
           <option value="Гибрид">Гибрид</option>
@@ -166,7 +166,7 @@ function FindJob({ city = "all", jobs = [] }) {
 
         <input
           type="number"
-          placeholder="Зарплата от"
+          placeholder={t.salaryFrom}
           value={salaryFrom}
           onChange={(e) => setSalaryFrom(e.target.value)}
         />
@@ -174,7 +174,6 @@ function FindJob({ city = "all", jobs = [] }) {
 
       {/* CARDS */}
       <div className={style.cards}>
-
         {filteredVacancies.length > 0 ? (
           filteredVacancies.map((job) => (
             <div key={job.id} className={style.card}>
@@ -183,11 +182,11 @@ function FindJob({ city = "all", jobs = [] }) {
                 <h3 className={style.title}>{job.title}</h3>
 
                 <div className={style.info}>
-                  <p>Город: {job.city}</p>
-                  <p>Категория: {job.category}</p>
-                  <p>График: {job.schedule}</p>
-                  <p>Оплата: {job.paymentType}</p>
-                  <p>Формат: {job.format}</p>
+                  <p>{t.city}: {job.city}</p>
+                  <p>{t.category}: {job.category}</p>
+                  <p>{t.schedule}: {job.schedule}</p>
+                  <p>{t.payment}: {job.paymentType}</p>
+                  <p>{t.format}: {job.format}</p>
                 </div>
               </div>
 
@@ -210,8 +209,12 @@ function FindJob({ city = "all", jobs = [] }) {
                   </button>
                 </div>
 
-                <button className={style.applyBtn}>
-                  Откликнуться
+                {/* 🔥 ОТКЛИК */}
+                <button
+                  className={style.applyBtn}
+                  onClick={() => navigate("/post-resume")}
+                >
+                  {t.apply}
                 </button>
 
               </div>
@@ -219,11 +222,8 @@ function FindJob({ city = "all", jobs = [] }) {
             </div>
           ))
         ) : (
-          <p className={style.empty}>
-            Вакансий не найдено
-          </p>
+          <p className={style.empty}>{t.notFound}</p>
         )}
-
       </div>
     </div>
   );
