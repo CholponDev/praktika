@@ -12,36 +12,63 @@ function Home({ lang }) {
   const popularJobs = [
     {
       id: 1,
-      title: "Frontend Developer",
-      short: "React • Remote",
-      description:
-        lang === "ru"
-          ? "Frontend Developer создаёт интерфейс сайта или приложения..."
-          : "Frontend Developer сайттын интерфейсин түзөт...",
-      salary: lang === "ru" ? "от 60 000 сом" : "60 000 сомдон баштап",
-      type: lang === "ru" ? "Удалённо" : "Алыстан",
+      title: "Frontend разработчик",
+      city: "Бишкек",
+      salary: "50 000 сом",
+      format: "Удаленно",
     },
     {
       id: 2,
-      title: "UI/UX Designer",
-      short: "Figma • Full-time",
-      description:
-        lang === "ru"
-          ? "UI/UX Designer проектирует удобный дизайн..."
-          : "UI/UX Designer ыңгайлуу дизайн түзөт...",
-      salary: lang === "ru" ? "от 45 000 сом" : "45 000 сомдон баштап",
-      type: lang === "ru" ? "Полный день" : "Толук күн",
+      title: "Менеджер по работе с клиентами",
+      city: "Бишкек",
+      salary: "45 000 сом",
+      format: "Офис",
     },
     {
       id: 3,
-      title: "Project Manager",
-      short: "Agile • Hybrid",
-      description:
-        lang === "ru"
-          ? "Project Manager управляет командой..."
-          : "Project Manager команда менен иштейт...",
-      salary: lang === "ru" ? "от 70 000 сом" : "70 000 сомдон баштап",
-      type: lang === "ru" ? "Гибрид" : "Гибрид",
+      title: "SMM-менеджер",
+      city: "Бишкек",
+      salary: "40 000 сом",
+      format: "Удаленно",
+    },
+  ];
+
+  const articles = [
+    {
+      id: 1,
+      title: "Как пережить отказы при поиске работы?",
+      image:
+        "https://i.pinimg.com/1200x/48/8a/c9/488ac945296daa146cfa83d65786c206.jpg",
+    },
+    {
+      id: 2,
+      title: "Как найти работу без опыта?",
+      image:
+        "https://i.pinimg.com/736x/24/76/98/2476983dd0ed5f1f0af3be5f2f8972a5.jpg",
+    },
+    {
+      id: 3,
+      title: "Чем заняться во время поиска работы?",
+      image:
+        "https://i.pinimg.com/736x/74/0a/4c/740a4c8f17b0274677b25aeba6efddb4.jpg",
+    },
+    {
+      id: 4,
+      title: "Какую зарплату указать в резюме?",
+      image:
+        "https://i.pinimg.com/736x/f0/ca/de/f0cadea94ad80131e2602051c794f627.jpg",
+    },
+    {
+      id: 5,
+      title: "Как совмещать работу с учебой?",
+      image:
+        "https://i.pinimg.com/1200x/bd/c1/d5/bdc1d541c01362d274dd21b494b19e4f.jpg",
+    },
+    {
+      id: 6,
+      title: "5 способов успокоиться перед собеседованием",
+      image:
+        "https://i.pinimg.com/736x/43/ab/ee/43abeead8d10e9a6e13efe439185ee14.jpg",
     },
   ];
 
@@ -77,36 +104,68 @@ function Home({ lang }) {
         </div>
       </div>
 
-      {/* POPULAR */}
+      {/* POPULAR JOBS */}
       <section className={styles.section}>
         <h2>{t.popular}</h2>
 
         <div className={styles.grid}>
-          {popularJobs.map((job) => (
+          {popularJobs.map((item) => (
             <div
-              key={job.id}
+              key={item.id}
               className={`${styles.card} ${
-                activeJob === job.id ? styles.activeCard : ""
+                activeJob === item.id ? styles.activeCard : ""
               }`}
-              onClick={() => handleJobClick(job.id)}
+              onClick={() => handleJobClick(item.id)}
             >
-              <h3>{job.title}</h3>
-              <p>{job.short}</p>
+              <h3>{item.title}</h3>
 
-              {activeJob === job.id && (
+              <p className={styles.countText}>{item.city}</p>
+              <p className={styles.salaryText}>{item.salary}</p>
+              <p className={styles.countText}>{item.format}</p>
+
+              {activeJob === item.id && (
                 <div className={styles.jobInfo}>
-                  <p>{job.description}</p>
-
-                  <div className={styles.jobDetails}>
-                    <span>{job.salary}</span>
-                    <span>{job.type}</span>
-                  </div>
-
                   <button className={styles.applyBtn}>
-                    {lang === "ru" ? "Подробнее" : "Толугураак"}
+                    {lang === "ru"
+                      ? "Смотреть вакансии"
+                      : "Жумуштарды көрүү"}
                   </button>
                 </div>
               )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ARTICLES (UPDATED FIXED) */}
+      <section className={styles.section}>
+        <h2>Полезные статьи</h2>
+
+        <div className={styles.grid}>
+          {articles.map((item) => (
+            <div
+              key={item.id}
+              className={styles.card}
+              onClick={() => navigate(`/article/${item.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                style={{
+                  width: "100%",
+                  height: "160px",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                  marginBottom: "12px",
+                }}
+              />
+
+              <h3>{item.title}</h3>
+
+              <p className={styles.countText}>
+                Читать статью →
+              </p>
             </div>
           ))}
         </div>
@@ -119,14 +178,14 @@ function Home({ lang }) {
         <div className={styles.features}>
           {(lang === "ru"
             ? [
-                "🚀 Быстрый поиск работы",
-                "💼 Проверенные работодатели",
-                "📊 Удобный интерфейс",
+                "Быстрый поиск работы",
+                "Проверенные работодатели",
+                "Удобный интерфейс",
               ]
             : [
-                "🚀 Жумушту тез табуу",
-                "💼 Текшерилген иш берүүчүлөр",
-                "📊 Ыңгайлуу интерфейс",
+                "Жумушту тез табуу",
+                "Текшерилген иш берүүчүлөр",
+                "Ыңгайлуу интерфейс",
               ]
           ).map((item, i) => (
             <div key={i} className={styles.featureCard}>

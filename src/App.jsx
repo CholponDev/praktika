@@ -29,7 +29,7 @@ import Stats from "./pages/Stats";
 import Profile from "./pages/Profile";
 import Instructions from "./pages/Instructions";
 import Addresume from "./pages/Addresume";
-
+import Article from "./pages/Article";
 
 function AnimatedRoutes({ city, jobs, addJob, lang }) {
   const location = useLocation();
@@ -55,7 +55,7 @@ function AnimatedRoutes({ city, jobs, addJob, lang }) {
           path="/post-job"
           element={<PostJob addJob={addJob} lang={lang} />}
         />
-
+  <Route path="/article/:id" element={<Article />} />
         <Route path="/recruit-info" element={<RecruitInfo lang={lang} />} />
 
           <Route path="/profile" element={<Profile lang={lang} />} />
