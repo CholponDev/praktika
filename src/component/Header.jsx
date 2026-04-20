@@ -10,7 +10,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase";
 
-function Header({ city, setCity, lang, setLang }) {
+function Header({ city, setCity, lang, setLang, theme, setTheme }) {
   const navigate = useNavigate();
 
   const [openPhoto, setOpenPhoto] = useState(false);
@@ -70,6 +70,7 @@ function Header({ city, setCity, lang, setLang }) {
   };
 
   return (
+    
     <header className={style.header}>
       <div className={style.left}>
 
@@ -125,31 +126,32 @@ function Header({ city, setCity, lang, setLang }) {
 
           {menuOpen && userName && (
             <div className={style.dropdown}>
-              <div className={style.item} onClick={() => navigate("/profile")}>
-                Мой профиль
-              </div>
-              <div className={style.item} onClick={() => navigate("/resumes")}>
-                Мои резюме
-              </div>
-              <div className={style.item} onClick={() => navigate("/applications")}>
-                Мои отклики
-              </div>
-              <div className={style.item} onClick={() => navigate("/favorites")}>
-                Избранные вакансии
-              </div>
-              <div className={style.item} onClick={() => navigate("/stats")}>
-                Статистика
-              </div>
-              <div className={style.item} onClick={() => navigate("/instructions")}>
-                Инструкции
-              </div>
+             <div className={style.item} onClick={() => navigate("/profile")}>
+               {lang === "ru" ? "Мой профиль" : "Менин профилим"}
+             </div>
 
-              <div className={style.divider} />
+             <div className={style.item} onClick={() => navigate("/resumes")}>
+              {lang === "ru" ? "Мои резюме" : "Менин резюмелерим"}
+             </div>
 
-              <div className={style.logout} onClick={handleLogout}>
-                Выход
-              </div>
-            </div>
+             <div className={style.item} onClick={() => navigate("/applications")}>
+              {lang === "ru" ? "Мои отклики" : "Менин откликтерим"}
+             </div>
+
+             <div className={style.item} onClick={() => navigate("/favorites")}>
+              {lang === "ru" ? "Избранные вакансии" : "Тандалган вакансиялар"}
+             </div>
+
+             <div className={style.item} onClick={() => navigate("/instructions")}>
+              {lang === "ru" ? "Инструкции" : "Нускама"}
+             </div>
+
+             <div className={style.divider} />
+
+             <div className={style.logout} onClick={handleLogout}>
+               {lang === "ru" ? "Выход" : "Чыгуу"}
+             </div>
+             </div>
           )}
         </div>
 

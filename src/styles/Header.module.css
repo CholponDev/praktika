@@ -1,24 +1,10 @@
-/* =============================
-   Premium Header (Glassmorphism UI)
-   Inspired by Stripe / Linear / Apple
-   Fully Responsive Clean Version
-   ============================= */
-
 :root {
   --white: #ffffff;
   --purple-1: #7F3AA1;
   --purple-2: #5416B5;
-  --text: #1a1a1a;
-  --muted: rgba(0, 0, 0, 0.55);
-  --border: rgba(0, 0, 0, 0.08);
-  --glass: rgba(255, 255, 255, 0.7);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
-/* =============================
-   HEADER
-   ============================= */
+/* HEADER */
 .header {
   position: sticky;
   top: 0;
@@ -27,70 +13,73 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: clamp(8px, 2vw, 18px);
 
-  padding: 14px 28px;
+  padding: clamp(8px, 1.6vw, 14px) clamp(12px, 3vw, 28px);
 
   background: var(--glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   border-bottom: 1px solid var(--border);
-
   box-shadow: var(--shadow-soft);
 
   animation: fadeDown 0.4s ease;
 }
 
 @keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* =============================
-   LEFT
-   ============================= */
+/* LEFT */
 .left {
   display: flex;
   align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
+  gap: clamp(8px, 2vw, 18px);
+  min-width: 0;
 }
 
-/* =============================
-   LOGO
-   ============================= */
+/* LOGO */
 .logo {
-  height: 90px;
+  height: clamp(42px, 7vw, 76px);
   width: auto;
   object-fit: contain;
   cursor: pointer;
+  flex-shrink: 0;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo:hover {
-  transform: scale(1.06);
+  transform: scale(1.05);
   filter: drop-shadow(0 0 14px rgba(127, 58, 161, 0.35));
 }
 
-/* =============================
-   NAVIGATION (DESKTOP)
-   ============================= */
+/* NAVIGATION */
 .navList {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: clamp(6px, 1.4vw, 16px);
   list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
 }
 
 .navItem {
-  font-size: 14px;
+  font-size: clamp(11px, 1.2vw, 14px);
   font-weight: 500;
   color: var(--muted);
   cursor: pointer;
 
-  padding: 8px 12px;
+  padding: clamp(5px, 1vw, 8px) clamp(8px, 1.4vw, 12px);
   border-radius: 999px;
 
   transition: all 0.25s ease;
@@ -103,36 +92,32 @@
   transform: translateY(-1px);
 }
 
-/* =============================
-   RIGHT
-   ============================= */
+/* RIGHT */
 .right {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: clamp(6px, 1.5vw, 12px);
+  flex-shrink: 0;
 }
 
-/* =============================
-   BUTTON
-   ============================= */
+/* BUTTON */
 .button {
-  padding: 10px 16px;
+  padding: clamp(7px, 1vw, 10px) clamp(10px, 1.6vw, 16px);
 
   border: none;
   border-radius: 999px;
 
-  font-size: 13px;
+  font-size: clamp(11px, 1.1vw, 13px);
   font-weight: 600;
   color: var(--white);
 
   background: linear-gradient(135deg, var(--purple-1), var(--purple-2));
-
   cursor: pointer;
 
   box-shadow: 0 8px 20px rgba(127, 58, 161, 0.25);
-
   transition: all 0.25s ease;
+
+  white-space: nowrap;
 }
 
 .button:hover {
@@ -140,9 +125,7 @@
   box-shadow: 0 12px 30px rgba(127, 58, 161, 0.35);
 }
 
-/* =============================
-   USER
-   ============================= */
+/* USER */
 .userBox {
   position: relative;
   display: flex;
@@ -150,7 +133,7 @@
 }
 
 .userBtn {
-  padding: 9px 14px;
+  padding: clamp(7px, 1vw, 9px) clamp(10px, 1.4vw, 14px);
 
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -158,12 +141,16 @@
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
 
-  font-size: 13px;
+  font-size: clamp(11px, 1.1vw, 13px);
   font-weight: 500;
 
   cursor: pointer;
-
   transition: all 0.25s ease;
+
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userBtn:hover {
@@ -171,37 +158,41 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* =============================
-   DROPDOWN
-   ============================= */
+/* DROPDOWN */
 .dropdown {
   position: absolute;
-  top: 48px;
+  top: calc(100% + 10px);
   right: 0;
 
-  width: 220px;
+  width: min(220px, calc(100vw - 24px));
   padding: 10px;
 
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(18px);
 
   border: 1px solid var(--border);
   border-radius: 18px;
 
   box-shadow: var(--shadow);
-
   animation: dropdownIn 0.25s ease;
 }
 
 @keyframes dropdownIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .item {
   padding: 10px 12px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 13px);
   color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -221,7 +212,7 @@
 .logout {
   padding: 10px 12px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: clamp(12px, 1vw, 13px);
   font-weight: 500;
   color: #d92d20;
   cursor: pointer;
@@ -233,81 +224,142 @@
   transform: translateX(4px);
 }
 
-/* =============================
-   RESPONSIVE (FULL)
-   ============================= */
+/* FLAGS */
+.right img[alt="ru"],
+.right img[alt="kg"] {
+  width: clamp(19px, 3vw, 24px) !important;
+  height: auto;
+  border-radius: 4px;
+}
 
-@media (max-width: 1024px) {
-  .navList {
-    gap: 12px;
+/* TABLET */
+@media (max-width: 900px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .logo {
-    height: 70px;
+  .left,
+  .right {
+    width: 100%;
+  }
+
+  .left {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  /* .left {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+} */
+
+  .right {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .navList {
+    overflow-x: auto;
+    padding-bottom: 4px;
   }
 }
 
-@media (max-width: 768px) {
+/* PHONE */
+@media (max-width: 600px) {
   .header {
-    padding: 10px 14px;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 8px 10px;
+    gap: 8px;
   }
 
-  .left, .right {
+  .left {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow: hidden;
   }
 
   .logo {
-    height: 55px;
-  }
-
-  .navList {
-    width: 100%;
-    overflow-x: auto;
-    padding: 6px 0;
-    gap: 10px;
-  }
-
-  .navItem {
-    font-size: 12px;
-    padding: 6px 10px;
+    height: 38px;
     flex-shrink: 0;
   }
 
-  .button {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-
-  .userBtn {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 10px;
-  }
-
-  .logo {
-    height: 48px;
-  }
-
   .navList {
-    gap: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 4px 0;
+    margin: 0;
   }
 
-  .button {
-    width: 100%;
-    text-align: center;
+  .navItem {
+    font-size: 10.5px;
+    padding: 5px 8px;
+    flex-shrink: 0;
   }
 
   .right {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 7px;
   }
+
+  .button,
+  .userBtn {
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+
+  .dropdown {
+    left: 0;
+    right: auto;
+  }
+}
+
+/* SMALL PHONE */
+@media (max-width: 390px) {
+  .logo {
+    height: 38px;
+  }
+
+  .button,
+  .userBtn {
+    font-size: 10.5px;
+    padding: 6px 9px;
+  }
+
+  .navItem {
+    font-size: 10.5px;
+  }
+}
+
+.themeBtn {
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+
+  cursor: pointer;
+  font-size: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.25s ease;
+}
+
+.themeBtn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-soft);
 }

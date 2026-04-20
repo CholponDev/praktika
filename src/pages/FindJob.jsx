@@ -111,6 +111,25 @@ function FindJob({ city = "all", jobs = [], lang }) {
     allVacancies,
   ]);
 
+  const handleApply = (job) => {
+  const oldApplications =
+    JSON.parse(localStorage.getItem("applications")) || [];
+
+  const newApplication = {
+    id: Date.now(),
+    title: job.title,
+    company: job.company || "Компания не указана",
+    status: "pending",
+  };
+
+  localStorage.setItem(
+    "applications",
+    JSON.stringify([...oldApplications, newApplication])
+  );
+
+  navigate("/applications");
+};
+
   return (
     <div className={style.page}>
 
@@ -212,10 +231,10 @@ function FindJob({ city = "all", jobs = [], lang }) {
                 {/* 🔥 ОТКЛИК */}
                 <button
                   className={style.applyBtn}
-                  onClick={() => navigate("/post-resume")}
-                >
+                 onClick={() => handleApply(job)}
+                 >
                   {t.apply}
-                </button>
+               </button>
 
               </div>
 
