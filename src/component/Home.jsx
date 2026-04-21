@@ -7,74 +7,94 @@ function Home({ lang }) {
   const navigate = useNavigate();
   const t = translations[lang];
 
-  const [activeJob, setActiveJob] = useState(null);
+ {/* <button className={styles.applyBtn}>
+                    {lang === "ru"
+                      ? "Смотреть вакансии"
+                      : "Жумуштарды көрүү"}
+                  </button> */}
 
-  const popularJobs = [
-    {
-      id: 1,
-      title: "Frontend разработчик",
-      city: "Бишкек",
-      salary: "50 000 сом",
-      format: "Удаленно",
-    },
-    {
-      id: 2,
-      title: "Менеджер по работе с клиентами",
-      city: "Бишкек",
-      salary: "45 000 сом",
-      format: "Офис",
-    },
-    {
-      id: 3,
-      title: "SMM-менеджер",
-      city: "Бишкек",
-      salary: "40 000 сом",
-      format: "Удаленно",
-    },
-  ];
+ const popularJobs = [
+  {
+    id: 1,
+    title: "Frontend Developer",
+    description:
+    lang === "ru" ? "Создаёт внешний вид сайта: кнопки, страницы, формы и удобный интерфейс для пользователей." : "Сайттын сырткы көрүнүшүн түзөт: баскычтар, барактар, формалар жана колдонуучулар үчүн ыңгайлуу интерфейс.",
+  },
+  {
+    id: 2,
+    title: "UI/UX Designer",
+    description:
+    lang === "ru" ? "Продумывает дизайн сайта или приложения: цвета, расположение блоков и удобство использования." :
+      "Сайттын же колдонмонун дизайнын ойлонуп чыгат: түстөрдү, блоктордун жайгашуусун жана колдонууга ыңгайлуулугун түзөт.",
+  },
+  {
+    id: 3,
+    title: "Project Manager",
+    description:
+    lang === "ru" ?
+      "Организует работу команды, следит за задачами, сроками и общением между участниками проекта." :
+      "Команданын ишин уюштурат, тапшырмаларга, мөөнөттөргө жана долбоордун катышуучуларынын ортосундагы байланышка көзөмөл жүргүзөт.",
+  },
+];
 
   const articles = [
     {
       id: 1,
-      title: "Как пережить отказы при поиске работы?",
+      title:
+      lang === "ru" ?
+      "Как пережить отказы при поиске работы?" :
+      "Жумуш издеп жатканда баш тартууларды кантип жеңип чыгуу керек?" ,
       image:
         "https://i.pinimg.com/1200x/48/8a/c9/488ac945296daa146cfa83d65786c206.jpg",
     },
     {
       id: 2,
-      title: "Как найти работу без опыта?",
+      title: 
+      lang === "ru" ? 
+      "Как найти работу без опыта?" :
+      "Тажрыйбасыз жумушту кантип табуу керек?" ,
       image:
         "https://i.pinimg.com/736x/24/76/98/2476983dd0ed5f1f0af3be5f2f8972a5.jpg",
     },
     {
       id: 3,
-      title: "Чем заняться во время поиска работы?",
+      title: 
+      lang === "ru" ? 
+      "Чем заняться во время поиска работы?" :
+      "Жумуш издеп жатканда эмне кылуу керек?" ,
       image:
         "https://i.pinimg.com/736x/74/0a/4c/740a4c8f17b0274677b25aeba6efddb4.jpg",
     },
     {
       id: 4,
-      title: "Какую зарплату указать в резюме?",
+      title: 
+      lang === "ru" ? 
+      "Какую зарплату указать в резюме?" :
+      "Резюмеге кандай маяна көрсөтүү керек?" ,
       image:
         "https://i.pinimg.com/736x/f0/ca/de/f0cadea94ad80131e2602051c794f627.jpg",
     },
     {
       id: 5,
-      title: "Как совмещать работу с учебой?",
+      title: 
+      lang === "ru" ? 
+      "Как совмещать работу с учебой?" :
+      "Жумуш менен окууну кантип айкалыштыруу керек?" ,
       image:
         "https://i.pinimg.com/1200x/bd/c1/d5/bdc1d541c01362d274dd21b494b19e4f.jpg",
     },
     {
       id: 6,
-      title: "5 способов успокоиться перед собеседованием",
+      title: 
+      lang === "ru" ? 
+      "5 способов успокоиться перед собеседованием" :
+      "Сүйлөшүү алдында тынчтануунун 5 жолу" ,
       image:
         "https://i.pinimg.com/736x/43/ab/ee/43abeead8d10e9a6e13efe439185ee14.jpg",
     },
   ];
 
-  const handleJobClick = (id) => {
-    setActiveJob(activeJob === id ? null : id);
-  };
+ 
 
   return (
     <div className={styles.page}>
@@ -105,41 +125,25 @@ function Home({ lang }) {
       </div>
 
       {/* POPULAR JOBS */}
+      
+                 
+
       <section className={styles.section}>
-        <h2>{t.popular}</h2>
+  <h2>{lang === "ru" ? "Популярные вакансии" : "Популярдуу вакансиялар"}</h2>
 
-        <div className={styles.grid}>
-          {popularJobs.map((item) => (
-            <div
-              key={item.id}
-              className={`${styles.card} ${
-                activeJob === item.id ? styles.activeCard : ""
-              }`}
-              onClick={() => handleJobClick(item.id)}
-            >
-              <h3>{item.title}</h3>
-
-              <p className={styles.countText}>{item.city}</p>
-              <p className={styles.salaryText}>{item.salary}</p>
-              <p className={styles.countText}>{item.format}</p>
-
-              {activeJob === item.id && (
-                <div className={styles.jobInfo}>
-                  <button className={styles.applyBtn}>
-                    {lang === "ru"
-                      ? "Смотреть вакансии"
-                      : "Жумуштарды көрүү"}
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
+  <div className={styles.grid}>
+    {popularJobs.map((job) => (
+      <div key={job.id} className={styles.card}>
+        <h3>{job.title}</h3>
+        <p>{job.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* ARTICLES (UPDATED FIXED) */}
       <section className={styles.section}>
-        <h2>Полезные статьи</h2>
+        <h2>{lang === "ru" ? "Полезные статьи" : "Пайдалуу кенештер"}</h2>
 
         <div className={styles.grid}>
           {articles.map((item) => (
@@ -201,13 +205,14 @@ function Home({ lang }) {
         <p>{t.footerText}</p>
 
         <div className={styles.footerLinks}>
-          <a href="#">Вакансии</a>
-          <a href="#">О нас</a>
-          <a href="#">Контакты</a>
+          <a href="#"> {lang === "ru" ?"Вакансии" : "Вакансиялар"}</a>
+          <a href="#"> {lang === "ru" ?"О нас" :"Биз жонундо"}</a>
+          <a href="#"> {lang === "ru" ?"Контакты" :"Байланыштар"}</a>
         </div>
 
         <p className={styles.copy}>
-          © 2026 Emgek.kg. Все права защищены.
+          {lang === "ru" ? "© 2026 Emgek.kg. Все права защищены." : "© 2026 Emgek.kg. Бардык укуктар корголгон."}
+
         </p>
       </footer>
 

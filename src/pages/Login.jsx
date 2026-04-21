@@ -35,7 +35,9 @@ function Login() {
   };
 
   return (
-    <form className={style.container} onSubmit={handleLogin}>
+
+    <div className={style.wrapper}>
+       <form className={style.container} onSubmit={handleLogin}>
       <h2>Вход</h2>
 
       <input
@@ -60,6 +62,9 @@ function Login() {
         Нет аккаунта? <Link to="/register">Регистрация</Link>
       </p>
     </form>
+    </div>
+
+   
   );
 }
 
