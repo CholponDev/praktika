@@ -22,6 +22,10 @@ function PostJob({ addJob, lang }) {
       paymentType: e.target.payment.value,
       salary: Number(e.target.salary.value),
       city: "Бишкек",
+
+      employerName: e.target.employerName.value,
+      phone: e.target.phone.value,
+      email: e.target.email.value,
     };
 
     addJob(newJob);
@@ -40,7 +44,6 @@ function PostJob({ addJob, lang }) {
         <h1 className={style.title}>{t.newJob}</h1>
 
         <form onSubmit={handleSubmit} className={style.form}>
-          
           {/* Название */}
           <div className={style.section}>
             <h2>{t.title}</h2>
@@ -111,13 +114,7 @@ function PostJob({ addJob, lang }) {
                     "Разъездной",
                     "Международный",
                   ]
-                : [
-                    "Кеңсе",
-                    "Алыстан",
-                    "Гибрид",
-                    "Көчмө",
-                    "Эл аралык",
-                  ]
+                : ["Кеңсе", "Алыстан", "Гибрид", "Көчмө", "Эл аралык"]
               ).map((item) => (
                 <label key={item} className={style.chip}>
                   <input type="radio" name="format" value={item} />
@@ -129,15 +126,32 @@ function PostJob({ addJob, lang }) {
 
           {/* График и часы */}
           <div className={style.section}>
-            <h2>График и часы работы</h2>
+            <h2>
+              {lang === "ru"
+                ? "График и часы работы"
+                : "Иш графиги жана сааттары"}
+            </h2>
 
-            <p className={style.sub}>График работы</p>
+            <p className={style.sub}>
+              {lang === "ru" ? "График работы" : "Иш графиги"}
+            </p>
+
             <div className={style.chips}>
               {[
-                "6/1","5/2","4/4","4/3","4/2",
-                "3/3","3/2","2/2","2/1",
-                "1/3","1/2",
-                "По выходным","Свободный","Другое"
+                "6/1",
+                "5/2",
+                "4/4",
+                "4/3",
+                "4/2",
+                "3/3",
+                "3/2",
+                "2/2",
+                "2/1",
+                "1/3",
+                "1/2",
+                lang === "ru" ? "По выходным" : "Дем алыш күндөрү",
+                lang === "ru" ? "Свободный" : "Эркин",
+                lang === "ru" ? "Другое" : "Башка",
               ].map((item) => (
                 <label key={item} className={style.chip}>
                   <input type="radio" name="schedule" value={item} />
@@ -146,9 +160,14 @@ function PostJob({ addJob, lang }) {
               ))}
             </div>
 
-            <p className={style.sub}>Рабочие часы в день</p>
+            <p className={style.sub}>
+              {lang === "ru"
+                ? "Рабочие часы в день"
+                : "Күнүнө иштөө сааты"}
+            </p>
+
             <div className={style.circleGroup}>
-              {[2,3,4,5,6,7,8,9,10,11,12,24].map((item) => (
+              {[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24].map((item) => (
                 <label key={item} className={style.circle}>
                   <input type="radio" name="hours" value={item} />
                   <span>{item}</span>
@@ -159,11 +178,7 @@ function PostJob({ addJob, lang }) {
 
           {/* Оплата */}
           <div className={style.section}>
-            <h2>
-              {lang === "ru"
-                ? "Частота оплаты"
-                : "Төлөм жыштыгы"}
-            </h2>
+            <h2>{lang === "ru" ? "Частота оплаты" : "Төлөм жыштыгы"}</h2>
 
             <select
               name="payment"
@@ -172,9 +187,7 @@ function PostJob({ addJob, lang }) {
               className={style.input}
             >
               <option value="" disabled>
-                {lang === "ru"
-                  ? "Выберите"
-                  : "Тандаңыз"}
+                {lang === "ru" ? "Выберите" : "Тандаңыз"}
               </option>
 
               {(lang === "ru"
@@ -195,11 +208,43 @@ function PostJob({ addJob, lang }) {
               type="number"
               name="salary"
               className={style.input}
+              placeholder={lang === "ru" ? "Введите сумму" : "Сумманы жазыңыз"}
+            />
+          </div>
+
+          {/* Контакты работодателя */}
+          <div className={style.section}>
+            <h2>
+              {lang === "ru"
+                ? "Контакты работодателя"
+                : "Иш берүүчүнүн байланыштары"}
+            </h2>
+
+            <input
+              type="text"
+              name="employerName"
+              required
+              className={style.input}
               placeholder={
                 lang === "ru"
-                  ? "Введите сумму"
-                  : "Сумманы жазыңыз"
+                  ? "Имя работодателя или компании"
+                  : "Иш берүүчүнүн же компаниянын аты"
               }
+            />
+
+            <input
+              type="tel"
+              name="phone"
+              required
+              className={style.input}
+              placeholder={lang === "ru" ? "Номер телефона" : "Телефон номери"}
+            />
+
+            <input
+              type="email"
+              name="email"
+              className={style.input}
+              placeholder={lang === "ru" ? "Email, если есть" : "Email, эгер болсо"}
             />
           </div>
 

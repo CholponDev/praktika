@@ -11,8 +11,7 @@ import translations from "../translations";
 
 function FindJob({ city = "all", jobs = [], lang }) {
   const t = translations.findJob[lang];
-
-  const navigate = useNavigate(); // ✅ ДОБАВИЛИ
+  const navigate = useNavigate();
 
   const [category, setCategory] = useState("all");
   const [schedule, setSchedule] = useState("all");
@@ -62,9 +61,11 @@ function FindJob({ city = "all", jobs = [], lang }) {
 
   useEffect(() => {
     const favState = {};
+
     allVacancies.forEach((job) => {
       favState[job.id] = isFavorite(job.id);
     });
+
     setFavorites(favState);
   }, [allVacancies]);
 
@@ -94,9 +95,7 @@ function FindJob({ city = "all", jobs = [], lang }) {
       .filter((item) =>
         paymentType === "all" ? true : item.paymentType === paymentType
       )
-      .filter((item) =>
-        format === "all" ? true : item.format === format
-      )
+      .filter((item) => (format === "all" ? true : item.format === format))
       .filter((item) =>
         salaryFrom === "" ? true : item.salary >= Number(salaryFrom)
       );
@@ -112,27 +111,26 @@ function FindJob({ city = "all", jobs = [], lang }) {
   ]);
 
   const handleApply = (job) => {
-  const oldApplications =
-    JSON.parse(localStorage.getItem("applications")) || [];
+    const oldApplications =
+      JSON.parse(localStorage.getItem("applications")) || [];
 
-  const newApplication = {
-    id: Date.now(),
-    title: job.title,
-    company: job.company || "Компания не указана",
-    status: "pending",
+    const newApplication = {
+      id: Date.now(),
+      title: job.title,
+      company: job.company || job.employerName || "Компания не указана",
+      status: "pending",
+    };
+
+    localStorage.setItem(
+      "applications",
+      JSON.stringify([...oldApplications, newApplication])
+    );
+
+    navigate("/applications");
   };
-
-  localStorage.setItem(
-    "applications",
-    JSON.stringify([...oldApplications, newApplication])
-  );
-
-  navigate("/applications");
-};
 
   return (
     <div className={style.page}>
-
       {/* HERO */}
       <div className={style.hero}>
         <h1>{t.title}</h1>
@@ -196,29 +194,70 @@ function FindJob({ city = "all", jobs = [], lang }) {
         {filteredVacancies.length > 0 ? (
           filteredVacancies.map((job) => (
             <div key={job.id} className={style.card}>
-
               <div className={style.left}>
                 <h3 className={style.title}>{job.title}</h3>
 
                 <div className={style.info}>
-                  <p>{t.city}: {job.city}</p>
-                  <p>{t.category}: {job.category}</p>
-                  <p>{t.schedule}: {job.schedule}</p>
-                  <p>{t.payment}: {job.paymentType}</p>
-                  <p>{t.format}: {job.format}</p>
+                  <p>
+                    <span>{t.city}:</span> {job.city}
+                  </p>
+                  <p>
+                    <span>{t.category}:</span> {job.category}
+                  </p>
+                  <p>
+                    <span>{t.schedule}:</span> {job.schedule}
+                  </p>
+                  <p>
+                    <span>{t.payment}:</span> {job.paymentType}
+                  </p>
+                  <p>
+                    <span>{t.format}:</span> {job.format}
+                  </p>
                 </div>
+
+                {(job.employerName || job.phone || job.email) && (
+                  <div className={style.contacts}>
+                    <h4>
+                      {lang === "ru"
+                        ? "Контакты работодателя"
+                        : "Иш берүүчүнүн байланыштары"}
+                    </h4>
+
+                    {job.employerName && (
+                      <p>
+                        <span>
+                          {lang === "ru" ? "Работодатель" : "Иш берүүчү"}:
+                        </span>{" "}
+                        {job.employerName}
+                      </p>
+                    )}
+
+                    {job.phone && (
+                      <p>
+                        <span>
+                          {lang === "ru" ? "Телефон" : "Телефон"}:
+                        </span>{" "}
+                        {job.phone}
+                      </p>
+                    )}
+
+                    {job.email && (
+                      <p>
+                        <span>Email:</span> {job.email}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className={style.line}></div>
 
               <div className={style.right}>
-
                 <div className={style.top}>
-                  <div className={style.salary}>
-                    {job.salary} сом
-                  </div>
+                  <div className={style.salary}>{job.salary} сом</div>
 
                   <button
+                    type="button"
                     className={`${style.heart} ${
                       favorites[job.id] ? style.activeHeart : ""
                     }`}
@@ -228,16 +267,14 @@ function FindJob({ city = "all", jobs = [], lang }) {
                   </button>
                 </div>
 
-                {/* 🔥 ОТКЛИК */}
                 <button
+                  type="button"
                   className={style.applyBtn}
-                 onClick={() => handleApply(job)}
-                 >
+                  onClick={() => handleApply(job)}
+                >
                   {t.apply}
-               </button>
-
+                </button>
               </div>
-
             </div>
           ))
         ) : (

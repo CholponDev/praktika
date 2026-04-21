@@ -130,9 +130,9 @@ function Header({ city, setCity, lang, setLang, theme, setTheme }) {
                {lang === "ru" ? "Мой профиль" : "Менин профилим"}
              </div>
 
-             <div className={style.item} onClick={() => navigate("/resumes")}>
+             {/* <div className={style.item} onClick={() => navigate("/resumes")}>
               {lang === "ru" ? "Мои резюме" : "Менин резюмелерим"}
-             </div>
+             </div> */}
 
              <div className={style.item} onClick={() => navigate("/applications")}>
               {lang === "ru" ? "Мои отклики" : "Менин откликтерим"}
