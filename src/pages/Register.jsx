@@ -44,7 +44,6 @@ function Register() {
       console.error(error)
 
       if (error.code === "auth/email-already-in-use") {
-        alert("У вас уже есть аккаунт. Перенаправляем на вход")
         navigate("/login")
       } else {
         alert("Ошибка при регистрации")
